@@ -9,4 +9,7 @@ def health_check():
 
 def response():
     query = request.args.get('query')
-    return jsonify({'id': uuid.uuid1(), 'list': ''.format(suggest_via_prefix_tree(query))})
+    print(query)
+    result = suggest_via_prefix_tree(query)
+    print(result)
+    return jsonify({'id': uuid.uuid1(), 'list': result})
