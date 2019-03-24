@@ -5,7 +5,9 @@ name = "pypi"
 
 [packages]
 requests = "*"
-connexion = "*"
+connexion = {extras = ["swagger-ui"],version = "*"}
+pytrie3 = "*"
+pytest = "*"
 
 [dev-packages]
 pytest = "*"
