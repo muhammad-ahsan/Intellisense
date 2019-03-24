@@ -8,7 +8,7 @@ COPY supervisor.conf /etc/supervisor/conf.d/
 COPY Pipfile ./
 COPY Pipfile.lock ./
 RUN pip install pipenv
-RUN pipenv install -e
+RUN pipenv install --dev
 
 COPY app.py ./
 COPY logg.conf/ ./
