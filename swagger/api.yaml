@@ -1,0 +1,65 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Intellisense for better user experience
+paths:
+  /v1/health:
+    get:
+      summary: Get health of service endpoint
+      operationId: intellisense.utils.health_check
+      tags:
+        - health
+      responses:
+        200:
+          description: Health status of service endpoint
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /v1/request:
+    post:
+      summary: Get health of service endpoint
+      operationId: intellisense.utils.response
+      tags:
+        - Intellisense response render
+      parameters:
+        - name: query
+          in: path
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: Reply from intellisense renderer
+        default:
+          description: Intellisense reply as json
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response"
+components:
+  schemas:
+    Response:
+      required:
+        - transaction_id
+        - query
+        - list_of_words
+      properties:
+        transaction_id:
+          type: string
+        query:
+          type: string
+        list_of_words:
+          type: string
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
