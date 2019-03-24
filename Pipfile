@@ -5,8 +5,7 @@ name = "pypi"
 
 [packages]
 requests = "*"
-connecxion = "*"
-
+connexion = "*"
 
 [dev-packages]
 pytest = "*"
