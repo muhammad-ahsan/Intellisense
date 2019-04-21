@@ -8,4 +8,6 @@ python: 3.6
 install:
   - pip install pipenv pytest
   - pipenv install
-  - pytest 
+
+# command to run tests
+script: pytest
