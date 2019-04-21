@@ -8,6 +8,7 @@ requests = "*"
 connexion = {extras = ["swagger-ui"],version = "*"}
 pytrie3 = "*"
 pytest = "*"
+pylint = "*"
 
 [dev-packages]
 pytest = "*"
