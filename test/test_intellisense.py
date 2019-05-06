@@ -1,5 +1,5 @@
-from intellisense import suggest_via_prefix_tree
+from intellisense import prefix_tree
 
 
-def test_prefix_get_next_word():
-    assert len(suggest_via_prefix_tree('')) == 0
+def test_prefix_tree():
+    assert len(prefix_tree.recommend('')) == 0
