@@ -1,6 +1,6 @@
 import uuid
 from flask import jsonify, request
-from intellisense import suggest_via_prefix_tree
+from intellisense import prefix_tree
 
 
 def health_check():
@@ -10,6 +10,6 @@ def health_check():
 def response():
     query = request.args.get('query')
     print(query)
-    result = suggest_via_prefix_tree(query)
+    result = prefix_tree.recommend(query)
     print(result)
     return jsonify({'id': uuid.uuid1(), 'list': result})
