@@ -5,7 +5,7 @@ from intellisense import prefix_tree
 
 @pytest.fixture
 def my_prefix_tree():
-    return prefix_tree()
+    return prefix_tree
 
 
 def test_prefix_tree(my_prefix_tree):
