@@ -25,9 +25,9 @@ paths:
       tags:
         - Intellisense response render
       parameters:
-        - name: query
-          in: path
-          required: false
+        - name: keyword
+          in: query
+          required: true
           schema:
             type: string
       responses:
@@ -44,12 +44,12 @@ components:
     Response:
       required:
         - transaction_id
-        - query
+        - keyword
         - list_of_words
       properties:
         transaction_id:
           type: string
-        query:
+        keyword:
           type: string
         list_of_words:
           type: string

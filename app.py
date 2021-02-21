@@ -2,9 +2,9 @@ import connexion
 from flask import jsonify
 from connexion import RestyResolver
 
-connexion_app = connexion.FlaskApp(__name__, specification_dir='swagger/')
+options = {"swagger_ui": True}
+connexion_app = connexion.FlaskApp(__name__, specification_dir='swagger/', options=options)
 app = connexion_app.app
-app.url_map.strict_slashes = False
 connexion_app.add_api('api.yaml', resolver=RestyResolver('api'))
 
 
