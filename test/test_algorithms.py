@@ -18,8 +18,12 @@ def phonetic_index_obj() -> PhoneticIndex:
 def test_prefix_tree(prefix_tree_obj):
     """Testing prefix tree built with custom vocabulary"""
     assert "example" in prefix_tree_obj.recommend("example")
+    assert len(prefix_tree_obj.recommend("")) == 0
+    assert len(prefix_tree_obj.recommend(None)) == 0
 
 
 def test_phonetic_index(phonetic_index_obj):
     """Testing phonetic index built with custom vocabulary"""
     assert "example" in phonetic_index_obj.recommend("example")
+    assert len(phonetic_index_obj.recommend("")) == 0
+    assert len(phonetic_index_obj.recommend(None)) == 0
