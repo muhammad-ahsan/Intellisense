@@ -15,7 +15,8 @@ def health_check():
 
 def response():
     """Returning response to api call"""
-    query = request.args.get('query')
-    result = set()
-    result = result.union(prefix_tree.recommend(query)).union(phonetic_index.recommend(query))
+    keyword = request.args.get('keyword')
+    bucket = set()
+    result = list(bucket.union(prefix_tree.recommend(keyword)).
+                  union(phonetic_index.recommend(keyword)))
     return jsonify({'id': uuid.uuid1(), 'list': result})
