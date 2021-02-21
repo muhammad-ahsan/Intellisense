@@ -55,7 +55,7 @@ class PhoneticIndex(RecommendationStrategy):
         self.phonetic_index = PhoneticIndex.build_index(self.vocabulary)
 
     def recommend(self, word: str) -> set:
+        if word is None or word == '':
+            return set()
         code = soundex.encode_word(word)
-        if code in self.phonetic_index.keys():
-            return self.phonetic_index[code]
-        return set()
+        return self.phonetic_index[code] if code in self.phonetic_index.keys() else set()
