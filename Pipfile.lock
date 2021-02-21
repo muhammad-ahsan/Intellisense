@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "735e2f1485d1776d5b79d35c1cdada777c0f0f4a49433d731f35601c9203b1ba"
+            "sha256": "367635cf6b920949b46018ec69d0f0e3a5e99b77fc7842c77772648efb20e3e7"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -224,6 +224,14 @@
                 "sha256:67714da7f7bc052e064859c05c595155bd1ee9f69f76557e21f051443c20947a"
             ],
             "version": "==20.9"
+        },
+        "phonetisch": {
+            "hashes": [
+                "sha256:28b49286f34e509402a73f8c24054b52652ad87559504ba9c1ab988e8d8fc289",
+                "sha256:b3bd189227367e9474d71ba6d3b5345c01d41c10beec725e2e366b61424996a0"
+            ],
+            "index": "pypi",
+            "version": "==0.2.2"
         },
         "pluggy": {
             "hashes": [

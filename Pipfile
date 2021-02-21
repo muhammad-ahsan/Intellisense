@@ -9,6 +9,7 @@ connexion = {extras = ["swagger-ui"],version = "*"}
 pytrie3 = "*"
 pytest = "*"
 pylint = "*"
+phonetisch = "*"
 
 [dev-packages]
 pytest = "*"

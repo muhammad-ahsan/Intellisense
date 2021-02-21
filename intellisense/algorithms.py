@@ -1,33 +1,31 @@
-from abc import abstractmethod, ABCMeta
+"""Implementation of various intellisense strategies"""
 
-import os
+from abc import ABCMeta, abstractmethod
+from typing import Dict, Set
 import pytrie
+from phonetisch import soundex
 
 
 class RecommendationStrategy(metaclass=ABCMeta):
+    """Abstract base class for recommendations """
+
+    def __init__(self, vocabulary: set):
+        self.vocabulary = vocabulary
 
     @abstractmethod
-    def recommend(self):
+    def recommend(self, word: str):
+        """Method to return list of recommendations """
         raise NotImplementedError('No implementation of abstract class')
 
 
 class PrefixTree(RecommendationStrategy):
+    """ Implementation of RecommendationStrategy based on prefix trees """
 
-    def __init__(self):
-        self._repo = os.path.dirname(os.path.abspath(__file__))
-        self._path = self._repo + '/data/training.txt'
-        words = set()
+    def __init__(self, vocabulary: set):
+        super().__init__(vocabulary)
+        self._prefix_tree = pytrie.SortedStringTrie.fromkeys(vocabulary)
 
-        exists = os.path.isfile(self._path)
-        if not exists:
-            raise FileNotFoundError('Training do not exist')
-
-        words = set(open(self._path).read().split())
-
-        processed_words = map(lambda x: x.lower(), words)
-        self._prefix_tree = pytrie.SortedStringTrie.fromkeys(processed_words)
-
-    def recommend(self, word):
+    def recommend(self, word: str):
         if word is None or word == '':
             return list()
 
@@ -35,3 +33,29 @@ class PrefixTree(RecommendationStrategy):
             raise Exception('Prefix tree not ready')
         return self._prefix_tree.keys(prefix=str.lower(word))
 
+
+class PhoneticIndex(RecommendationStrategy):
+    """Use the soundex library for building index for recommendations"""
+
+    @staticmethod
+    def build_index(vocabulary: set) -> Dict[str, Set[str]]:
+        """Build s phonetics algorithms based index for given vocabulary"""
+        idx = dict()
+        for value_word in vocabulary:
+            key = soundex.encode_word(value_word)
+            if key in idx.keys():
+                idx[key].add(value_word)
+            else:
+                idx[key] = set()
+                idx[key].add(value_word)
+        return idx
+
+    def __init__(self, vocabulary: set):
+        super().__init__(vocabulary)
+        self.phonetic_index = PhoneticIndex.build_index(self.vocabulary)
+
+    def recommend(self, word: str):
+        code = soundex.encode_word(word)
+        if code in self.phonetic_index.keys():
+            return self.phonetic_index[code]
+        return set()
