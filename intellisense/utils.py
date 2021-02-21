@@ -1,8 +1,8 @@
 """API call handler module"""
 import uuid
 from flask import jsonify, request
-import algorithms
-import helper
+from intellisense import algorithms
+from intellisense import helper
 
 prefix_tree = algorithms.PrefixTree(helper.get_vocabulary("en"))
 phonetic_index = algorithms.PhoneticIndex(helper.get_vocabulary("en"))
