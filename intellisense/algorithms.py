@@ -25,13 +25,13 @@ class PrefixTree(RecommendationStrategy):
         super().__init__(vocabulary)
         self._prefix_tree = pytrie.SortedStringTrie.fromkeys(vocabulary)
 
-    def recommend(self, word: str):
+    def recommend(self, word: str) -> set:
         if word is None or word == '':
-            return list()
+            return set()
 
         if self._prefix_tree is None:
             raise Exception('Prefix tree not ready')
-        return self._prefix_tree.keys(prefix=str.lower(word))
+        return set(self._prefix_tree.keys(prefix=str.lower(word)))
 
 
 class PhoneticIndex(RecommendationStrategy):
@@ -54,7 +54,7 @@ class PhoneticIndex(RecommendationStrategy):
         super().__init__(vocabulary)
         self.phonetic_index = PhoneticIndex.build_index(self.vocabulary)
 
-    def recommend(self, word: str):
+    def recommend(self, word: str) -> set:
         code = soundex.encode_word(word)
         if code in self.phonetic_index.keys():
             return self.phonetic_index[code]
