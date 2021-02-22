@@ -4,9 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+connexion = {extras = ["swagger-ui"]}
 requests = "*"
-connexion = {extras = ["swagger-ui"],version = "*"}
-pytrie3 = "*"
+PyTrie3 = "*"
 pytest = "*"
 pylint = "*"
 phonetisch = "*"
