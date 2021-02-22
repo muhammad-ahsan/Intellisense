@@ -15,7 +15,6 @@ RUN pipenv lock --keep-outdated --requirements > requirements.txt
 RUN pip install -r requirements.txt
 
 COPY app.py ./
-COPY logging.conf/ ./
 COPY swagger ./swagger
 COPY intellisense ./intellisense
 
