@@ -1,18 +1,32 @@
-FROM python:3.6.5-stretch
+FROM python:3.8
 MAINTAINER Muhammad Ahsan <muhammad.ahsan@gmail.com>
+
+RUN apt-get -q update && apt-get -y install supervisor
 WORKDIR /usr/src/app
-RUN apt-get update
-RUN apt-get -y install supervisor
 COPY uwsgi.ini .
-COPY supervisor.conf /etc/supervisor/conf.d/
+COPY supervisord.conf /etc/supervisor/conf.d/
+
 COPY Pipfile ./
 COPY Pipfile.lock ./
+
 RUN pip install pipenv
-RUN pipenv install --dev
+
+RUN pipenv lock --keep-outdated --requirements > requirements.txt
+RUN pip install -r requirements.txt
 
 COPY app.py ./
-COPY logg.conf/ ./
+COPY logging.conf/ ./
 COPY swagger ./swagger
 COPY intellisense ./intellisense
+
+RUN ls
+
 EXPOSE 8080
-CMD ["supervisord", "-n"]
+
+# Non production code works flawlessly
+CMD ["python", "app.py"]
+
+# Currently Testing
+# CMD ["supervisord", "-n"]
+
+
