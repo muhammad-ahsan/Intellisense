@@ -23,4 +23,3 @@ def get_vocabulary(language_iso_code: str) -> set:
     source_dir = os.path.dirname(os.path.abspath(__file__)) + '/data/'
     filename = "vocabulary-{}.zip".format(language_iso_code)
     return get_zipped_vocabulary(source_dir + filename)
-
