@@ -9,7 +9,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/
 COPY Pipfile ./
 COPY Pipfile.lock ./
 
-RUN pip install pipenv
+RUN pip install pipenv uwsgi
 
 RUN pipenv lock --keep-outdated --requirements > requirements.txt
 RUN pip install -r requirements.txt
@@ -22,10 +22,10 @@ RUN ls
 
 EXPOSE 8080
 
-# Non production code works flawlessly
-CMD ["python", "app.py"]
+# Non production deployment
+# CMD ["python", "app.py"]
 
-# Currently Testing
-# CMD ["supervisord", "-n"]
+# Production deployment
+CMD ["supervisord", "-n"]
 
 
