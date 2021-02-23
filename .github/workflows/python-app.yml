@@ -37,8 +37,8 @@ jobs:
 
       - name: Runing Pylint
         run: |
-          pylint --version
-          python pyLint.py --path . --threshold 1.5
+          ls
+          python -m pylint *
 
       - name: Test with pytest
         run: |
