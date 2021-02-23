@@ -40,7 +40,7 @@ jobs:
     
     - name: Run linter
       run: |
-          pipenv run python -m pylint
+          python -m pylint
     
     - name: Run formatting check
       if: false
