@@ -18,7 +18,7 @@ jobs:
         python-version: [ 3.8 ]
         
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -32,12 +32,20 @@ jobs:
       with:
         path: ~/.local/share/virtualenvs
         key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
-    
-    - name: Install dependencies
-      if: steps.cache-pipenv.outputs.cache-hit != 'true'
-      run: |
-        pipenv install --deploy --dev
 
-    - name: Test with pytest
-      run: |
-        pipenv run python -m pytest
+      - name: Install dependencies
+        if: steps.cache-pipenv.outputs.cache-hit != 'true'
+        run: |
+          pipenv install --deploy --dev
+
+      - name: Checkking Pylint
+        run: |
+          pylint --version
+
+      - name: Analysing the code with pylint
+        run: |
+          pylint `ls -R|grep .py$|xargs`
+
+      - name: Test with pytest
+        run: |
+          pipenv run python -m pytest
