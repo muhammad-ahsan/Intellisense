@@ -38,7 +38,7 @@ jobs:
       - name: Runing Pylint
         run: |
           pylint --version
-          pylint .
+          pylint --rcfile=.pylintrc *.py
 
       - name: Test with pytest
         run: |
