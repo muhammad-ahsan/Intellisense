@@ -36,18 +36,8 @@ jobs:
     - name: Install dependencies
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run: |
-          pipenv install
-    
-    - name: Run linter
-      run: |
-          FILES=$(find . -iname "*.py")
-          pylint $FILES
-    
-    - name: Run formatting check
-      if: false
-      run: |
-          pipenv run format --check
-          
+        pipenv install --deploy --dev
+
     - name: Test with pytest
       run: |
         pipenv run python -m pytest
