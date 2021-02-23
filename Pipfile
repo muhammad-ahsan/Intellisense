@@ -11,4 +11,3 @@ phonetisch = "*"
 
 [dev-packages]
 pytest = "*"
-pylint = "*"
