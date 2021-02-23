@@ -7,9 +7,8 @@ name = "pypi"
 connexion = {extras = ["swagger-ui"]}
 requests = "*"
 PyTrie3 = "*"
-pytest = "*"
-pylint = "*"
 phonetisch = "*"
 
 [dev-packages]
 pytest = "*"
+pylint = "*"
