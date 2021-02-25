@@ -1,7 +1,7 @@
 FROM python:3.8
 MAINTAINER Muhammad Ahsan <muhammad.ahsan@gmail.com>
 
-RUN apt-get -q update && apt-get -y install supervisor
+RUN apt-get -q update && apt-get -y install supervisor && rm -rf /var/lib/apt/lists/*
 WORKDIR /usr/src/app
 COPY uwsgi.ini .
 COPY supervisord.conf /etc/supervisor/conf.d/
@@ -27,5 +27,3 @@ EXPOSE 8080
 
 # Production deployment
 CMD ["supervisord", "-n"]
-
-

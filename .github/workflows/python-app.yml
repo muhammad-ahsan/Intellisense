@@ -36,7 +36,7 @@ jobs:
           pipenv install --deploy --dev
 
       - name: Runing Pylint
-        if: False
+        if: 'false'
         run: |
           ls
           python -m pylint *
