@@ -1,17 +1,17 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: Intellisense for better user experience
+  title: Intellisense - Artificial Intelligence powered Search
 paths:
   /v1/health:
     get:
-      summary: Get health of service endpoint
+      summary: Query health of service endpoint
       operationId: intellisense.utils.health_check
       tags:
-        - health
+        - Health's Query
       responses:
         200:
-          description: Health status of service endpoint
+          description: Health of service endpoint
         default:
           description: unexpected error
           content:
@@ -20,10 +20,10 @@ paths:
                 $ref: "#/components/schemas/Error"
   /v1/request:
     post:
-      summary: Get health of service endpoint
+      summary: Query service endpoint
       operationId: intellisense.utils.response
       tags:
-        - Intellisense response render
+        - User's Query
       parameters:
         - name: keyword
           in: query
@@ -32,9 +32,9 @@ paths:
             type: string
       responses:
         200:
-          description: Reply from intellisense renderer
+          description: Response from service endpoint
         default:
-          description: Intellisense reply as json
+          description: Intellisense response as json
           content:
             application/json:
               schema:
