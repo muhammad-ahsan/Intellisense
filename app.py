@@ -14,5 +14,5 @@ def index_html():
 
 
 if __name__ == '__main__':
-    print('Welcome from AI driven intellisense')
+    print('WELCOME - ARTIFICIAL INTELLIGENCE POWERED SEARCH')
     app.run(port=5000)
