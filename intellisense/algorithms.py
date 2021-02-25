@@ -1,45 +1,49 @@
-"""Implementation of various intellisense strategies"""
-
-from abc import ABCMeta, abstractmethod
+from abc import abstractmethod
 from typing import Dict, Set
+
 import pytrie
 from phonetisch import soundex
 
 
-class RecommendationStrategy(metaclass=ABCMeta):
-    """Abstract base class for recommendations """
+class RecommendationStrategy:
 
-    def __init__(self, vocabulary: set):
+    def __init__(self, vocabulary):
         self.vocabulary = vocabulary
 
     @abstractmethod
-    def recommend(self, word: str):
-        """Method to return list of recommendations """
-        raise NotImplementedError('No implementation of abstract class')
+    def recommend(self, word: str) -> Dict[str, float]:  #
+        raise NotImplementedError("Abstract method have no implementation")
+
+    @staticmethod
+    def recommendations_post_processing(recommendations: Dict[str, float]) -> Dict[str, float]:
+        return recommendations
 
 
 class PrefixTree(RecommendationStrategy):
-    """ Implementation of RecommendationStrategy based on prefix trees """
 
     def __init__(self, vocabulary: set):
         super().__init__(vocabulary)
         self._prefix_tree = pytrie.SortedStringTrie.fromkeys(vocabulary)
 
-    def recommend(self, word: str) -> set:
+    def recommend(self, word: str) -> Dict[str, float]:
         if word is None or word == '':
-            return set()
+            return {}
 
         if self._prefix_tree is None:
             raise Exception('Prefix tree not ready')
-        return set(self._prefix_tree.keys(prefix=str.lower(word)))
+        recommendations = self._prefix_tree.keys(prefix=str.lower(word))
+        weight = [1.0 for i in range(len(recommendations))]
+        return self.recommendations_post_processing(dict(zip(recommendations, weight)))
 
 
 class PhoneticIndex(RecommendationStrategy):
-    """Use the soundex library for building index for recommendations"""
+
+    def __init__(self, vocabulary: set):
+        super().__init__(vocabulary)
+        self.phonetic_index = PhoneticIndex.build_index(self.vocabulary)
 
     @staticmethod
     def build_index(vocabulary: set) -> Dict[str, Set[str]]:
-        """Build s phonetics algorithms based index for given vocabulary"""
         idx = dict()
         for value_word in vocabulary:
             key = soundex.encode_word(value_word)
@@ -50,12 +54,10 @@ class PhoneticIndex(RecommendationStrategy):
                 idx[key].add(value_word)
         return idx
 
-    def __init__(self, vocabulary: set):
-        super().__init__(vocabulary)
-        self.phonetic_index = PhoneticIndex.build_index(self.vocabulary)
-
-    def recommend(self, word: str) -> set:
+    def recommend(self, word: str) -> Dict[str, float]:
         if word is None or word == '':
-            return set()
+            return {}
         code = soundex.encode_word(word)
-        return self.phonetic_index[code] if code in self.phonetic_index.keys() else set()
+        recommendations = self.phonetic_index[code] if code in self.phonetic_index.keys() else []
+        weight = [1.0 for i in range(len(recommendations))]
+        return self.recommendations_post_processing(dict(zip(recommendations, weight)))
