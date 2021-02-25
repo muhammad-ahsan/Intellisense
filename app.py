@@ -1,6 +1,6 @@
 import connexion
-from flask import jsonify
 from connexion import RestyResolver
+from flask import jsonify
 
 options = {"swagger_ui": True}
 connexion_app = connexion.FlaskApp(__name__, specification_dir='swagger/', options=options)
@@ -15,4 +15,4 @@ def index_html():
 
 if __name__ == '__main__':
     print('Welcome from AI driven intellisense')
-    app.run(port=8080)
+    app.run(port=5000)

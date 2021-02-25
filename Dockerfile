@@ -20,7 +20,7 @@ COPY intellisense ./intellisense
 
 RUN ls
 
-EXPOSE 8080
+EXPOSE 5000
 
 # Non production deployment
 # CMD ["python", "app.py"]
