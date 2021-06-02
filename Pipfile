@@ -7,7 +7,6 @@ name = "pypi"
 connexion = {extras = ["swagger-ui"]}
 requests = "*"
 PyTrie3 = "*"
-urllib3 = ">=1.26.5"
 phonetisch = "*"
 
 [dev-packages]
