@@ -1,0 +1,20 @@
+<!doctype html>
+<title>Welcome to Intellisense</title>
+<body>
+    <h1>Enter word to get hints from intellisense</h1>
+    <div>
+        <form>
+            <input type='text' name='word' />
+            <input type="button"  value = "Ok" />
+        </form>
+    </div>
+
+    <div>
+        <ul id="navigation">
+            {% for hint in hints %}
+                <li><a>{{hint}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
