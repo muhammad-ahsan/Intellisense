@@ -1,22 +1,24 @@
 FROM python:3.8
 MAINTAINER Muhammad Ahsan <muhammad.ahsan@gmail.com>
 
-RUN apt-get -q update && apt-get -y install supervisor && rm -rf /var/lib/apt/lists/*
+# Install pipenv and compilation dependencies
+RUN pip install pipenv
+RUN apt-get -q update && apt-get install -y --no-install-recommends gcc supervisor && rm -rf /var/lib/apt/lists/*
+
+# Install python dependencies in /.venv
+COPY Pipfile .
+COPY Pipfile.lock .
+RUN pipenv install --deploy
+
 WORKDIR /usr/src/app
 COPY uwsgi.ini .
 COPY supervisord.conf /etc/supervisor/conf.d/
-
-COPY Pipfile ./
-COPY Pipfile.lock ./
-
-RUN pip install pipenv uwsgi
+RUN pip install uwsgi
 
 COPY app.py ./
 COPY swagger ./swagger
 COPY templates ./templates
 COPY intellisense ./intellisense
-
-RUN ls
 
 EXPOSE 5000
 
