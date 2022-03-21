@@ -11,9 +11,6 @@ COPY Pipfile.lock ./
 
 RUN pip install pipenv uwsgi
 
-RUN pipenv lock --keep-outdated --requirements > requirements.txt
-RUN pip install -r requirements.txt
-
 COPY app.py ./
 COPY swagger ./swagger
 COPY templates ./templates
