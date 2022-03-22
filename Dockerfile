@@ -23,7 +23,7 @@ COPY intellisense ./intellisense
 EXPOSE 5000
 
 # Non production deployment
-# CMD ["python", "app.py"]
+CMD ["python", "app.py"]
 
 # Production deployment
-CMD ["supervisord", "-n"]
+# CMD ["supervisord", "-n"]
