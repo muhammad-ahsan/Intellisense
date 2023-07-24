@@ -1,7 +1,7 @@
 import uuid
 
 from fastapi import FastAPI
-from intellisense.algorithms import PhoneticRecommender
+from intellisense.recommender import PhoneticRecommender
 from intellisense.helper import get_vocabulary
 
 # TODO Use Factory Pattern here

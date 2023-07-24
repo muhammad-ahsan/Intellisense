@@ -1,7 +1,7 @@
 """Module to tests various algorithms"""
 import pytest
 
-from intellisense.algorithms import PhoneticRecommender
+from intellisense.recommender import PhoneticRecommender
 
 
 @pytest.fixture()
