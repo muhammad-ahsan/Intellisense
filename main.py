@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from intellisense.algorithms import PhoneticIndex
 from intellisense.helper import get_vocabulary
 
-phonetic_index = PhoneticIndex(get_vocabulary("en"))
+recommender = PhoneticIndex(get_vocabulary("en"))
 app = FastAPI()
 
 
@@ -15,7 +15,7 @@ async def root():
 
 @app.get("/recommendations")
 async def recommendation(keyword: str):
-    return {"recommendations": phonetic_index.recommend(keyword)}
+    return {"recommendations": recommender.get_recommendations(keyword)}
 
 
 @app.get("/health")

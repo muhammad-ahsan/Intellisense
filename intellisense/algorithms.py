@@ -10,11 +10,11 @@ class RecommendationStrategy:
         self.vocabulary: set = vocabulary
 
     @abstractmethod
-    def recommend(self, word: str) -> Dict[str, float]:
+    def get_recommendations(self, word: str) -> Dict[str, float]:
         raise NotImplementedError("Abstract method have no implementation")
 
     @staticmethod
-    def recommendations_post_processing(recommendations: Dict[str, float]) -> Dict[str, float]:
+    def process_recommendations(recommendations: Dict[str, float]) -> Dict[str, float]:
         return recommendations
 
 
@@ -36,10 +36,10 @@ class PhoneticIndex(RecommendationStrategy):
                 idx[key].add(value_word)
         return idx
 
-    def recommend(self, word: str) -> Dict[str, float]:
+    def get_recommendations(self, word: str) -> Dict[str, float]:
         if word is None or word == '':
             return {}
         code = soundex.encode_word(word)
         recommendations = self.phonetic_index[code] if code in self.phonetic_index.keys() else []
         weight = [1.0 for i in range(len(recommendations))]
-        return self.recommendations_post_processing(dict(zip(recommendations, weight)))
+        return self.process_recommendations(dict(zip(recommendations, weight)))
