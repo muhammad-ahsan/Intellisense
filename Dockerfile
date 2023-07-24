@@ -15,15 +15,14 @@ COPY supervisord.conf /etc/supervisor/conf.d/
 
 RUN pip install pipenv uwsgi
 
-COPY app.py ./
+COPY main.py ./
 COPY swagger ./swagger
-COPY templates ./templates
 COPY intellisense ./intellisense
 
 EXPOSE 5000
 
 # Non production deployment
-CMD ["python", "app.py"]
+CMD ["uvicorn", "main:app"]
 
 # Production deployment
 # CMD ["supervisord", "-n"]
