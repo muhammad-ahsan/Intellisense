@@ -1,10 +1,11 @@
 import uuid
 
 from fastapi import FastAPI
-from intellisense.algorithms import PhoneticIndex
+from intellisense.algorithms import PhoneticRecommender
 from intellisense.helper import get_vocabulary
 
-recommender = PhoneticIndex(get_vocabulary("en"))
+# TODO Use Factory Pattern here
+recommender = PhoneticRecommender(get_vocabulary("en"))
 app = FastAPI()
 
 

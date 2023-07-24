@@ -6,7 +6,7 @@ from phonetisch.algorithms import Soundex
 soundex = Soundex()
 
 
-class RecommendationStrategy:
+class IRecommender:
 
     def __init__(self, vocabulary: set):
         self.vocabulary: set = vocabulary
@@ -20,11 +20,11 @@ class RecommendationStrategy:
         return recommendations
 
 
-class PhoneticIndex(RecommendationStrategy):
+class PhoneticRecommender(IRecommender):
 
     def __init__(self, vocabulary: set):
         super().__init__(vocabulary)
-        self.phonetic_index = PhoneticIndex.build_index(self.vocabulary)
+        self.phonetic_index = PhoneticRecommender.build_index(self.vocabulary)
 
     @staticmethod
     def build_index(vocabulary: set) -> Dict[str, Set[str]]:

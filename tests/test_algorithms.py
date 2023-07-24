@@ -1,13 +1,13 @@
 """Module to tests various algorithms"""
 import pytest
 
-from intellisense.algorithms import PhoneticIndex
+from intellisense.algorithms import PhoneticRecommender
 
 
 @pytest.fixture()
-def phonetic_index() -> PhoneticIndex:
+def phonetic_index() -> PhoneticRecommender:
     """Providing phonetic index object"""
-    return PhoneticIndex({"example", "ekzampul"})
+    return PhoneticRecommender({"example", "ekzampul"})
 
 
 def test_phonetic_index_recommend(phonetic_index):
