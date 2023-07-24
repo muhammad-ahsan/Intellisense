@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from typing import Dict, Set
 
 from phonetisch.algorithms import Soundex
 
@@ -7,24 +8,24 @@ soundex = Soundex()
 
 class IRecommender:
     @staticmethod
-    def post_process_recommendations(recommendations: dict[str, float]) -> dict[str, float]:
+    def post_process_recommendations(recommendations: Dict[str, float]) -> Dict[str, float]:
         return recommendations
 
     @abstractmethod
-    def get_recommendations(self, word: str) -> dict[str, float]:
+    def get_recommendations(self, word: str) -> Dict[str, float]:
         raise NotImplementedError("Abstract method have no implementation")
 
     @abstractmethod
-    def _build_recommendations(self, word: str) -> dict[str, float]:
+    def _build_recommendations(self, word: str) -> Dict[str, float]:
         raise NotImplementedError("Abstract method have no implementation")
 
 
 class PhoneticRecommender(IRecommender):
 
-    def __init__(self, vocabulary: set[str]):
-        self.recommendations_idx: dict[str, set[str]] = self._build_recommendations(vocabulary)
+    def __init__(self, vocabulary: Set[str]):
+        self.recommendations_idx: Dict[str, set[str]] = self._build_recommendations(vocabulary)
 
-    def get_recommendations(self, word: str) -> dict[str, float]:
+    def get_recommendations(self, word: str) -> Dict[str, float]:
         if word is None or word == '':
             return {}
         code = soundex.encode_word(word)
@@ -32,7 +33,7 @@ class PhoneticRecommender(IRecommender):
         weight = [1.0 for i in range(len(recommendations))]
         return self.post_process_recommendations(dict(zip(recommendations, weight)))
 
-    def _build_recommendations(self, vocabulary: set) -> dict[str, set[str]]:
+    def _build_recommendations(self, vocabulary: set) -> Dict[str, Set[str]]:
         idx = dict()
         for value_word in vocabulary:
             key: str = soundex.encode_word(value_word)
