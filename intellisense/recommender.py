@@ -22,13 +22,13 @@ class IRecommender:
 class PhoneticRecommender(IRecommender):
 
     def __init__(self, vocabulary: set[str]):
-        self.phonetic_index: dict[str, set[str]] = self._build_recommendations(vocabulary)
+        self.recommendations_idx: dict[str, set[str]] = self._build_recommendations(vocabulary)
 
     def get_recommendations(self, word: str) -> dict[str, float]:
         if word is None or word == '':
             return {}
         code = soundex.encode_word(word)
-        recommendations = self.phonetic_index[code] if code in self.phonetic_index.keys() else []
+        recommendations = self.recommendations_idx[code] if code in self.recommendations_idx.keys() else []
         weight = [1.0 for i in range(len(recommendations))]
         return self.post_process_recommendations(dict(zip(recommendations, weight)))
 
