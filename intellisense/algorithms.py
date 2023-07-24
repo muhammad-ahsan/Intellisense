@@ -1,7 +1,9 @@
 from abc import abstractmethod
 from typing import Dict, Set
 
-from phonetisch import soundex
+from phonetisch.algorithms import Soundex
+
+soundex = Soundex()
 
 
 class RecommendationStrategy:
