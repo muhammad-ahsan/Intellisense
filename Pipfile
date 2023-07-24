@@ -4,9 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-connexion = {extras = ["swagger-ui"]}
-requests = "*"
-PyTrie3 = "*"
+
+fastapi = "*"
+uvicorn = {extras = ["all"]}
 phonetisch = "*"
 
 [dev-packages]

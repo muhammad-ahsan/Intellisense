@@ -1,39 +1,21 @@
 from abc import abstractmethod
 from typing import Dict, Set
 
-import pytrie
 from phonetisch import soundex
 
 
 class RecommendationStrategy:
 
-    def __init__(self, vocabulary):
-        self.vocabulary = vocabulary
+    def __init__(self, vocabulary: set):
+        self.vocabulary: set = vocabulary
 
     @abstractmethod
-    def recommend(self, word: str) -> Dict[str, float]:  #
+    def recommend(self, word: str) -> Dict[str, float]:
         raise NotImplementedError("Abstract method have no implementation")
 
     @staticmethod
     def recommendations_post_processing(recommendations: Dict[str, float]) -> Dict[str, float]:
         return recommendations
-
-
-class PrefixTree(RecommendationStrategy):
-
-    def __init__(self, vocabulary: set):
-        super().__init__(vocabulary)
-        self._prefix_tree = pytrie.SortedStringTrie.fromkeys(vocabulary)
-
-    def recommend(self, word: str) -> Dict[str, float]:
-        if word is None or word == '':
-            return {}
-
-        if self._prefix_tree is None:
-            raise Exception('Prefix tree not ready')
-        recommendations = self._prefix_tree.keys(prefix=str.lower(word))
-        weight = [1.0 for i in range(len(recommendations))]
-        return self.recommendations_post_processing(dict(zip(recommendations, weight)))
 
 
 class PhoneticIndex(RecommendationStrategy):
