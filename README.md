@@ -7,3 +7,6 @@ Intellisense - Empathize with users searching online!
 - Smart search box extension to assist online customers to find relevant products quickly easily.
 - Learnable and configurable recommendations
 - Helps save time and energy burned during product search and website clutter
+
+# Run the web server
+    uvicorn main:app --reload
