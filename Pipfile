@@ -11,3 +11,4 @@ soundex = "*"
 
 [dev-packages]
 pytest = "*"
+pytest-cov = "*"
