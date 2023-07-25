@@ -1,3 +1,4 @@
+from abc import ABCMeta
 from abc import abstractmethod
 from typing import Dict, Set
 
@@ -6,18 +7,20 @@ from phonetisch.algorithms import Soundex
 soundex = Soundex()
 
 
-class IRecommender:
+class IRecommender(metaclass=ABCMeta):
     @staticmethod
     def post_process_recommendations(recommendations: Dict[str, float]) -> Dict[str, float]:
         return recommendations
 
     @abstractmethod
-    def get_recommendations(self, word: str) -> Dict[str, float]:
-        raise NotImplementedError("Abstract method have no implementation")
+    def get_recommendations(self, *args) -> Dict[str, float]:
+        """ Retrieve recommendations as dictionary
+        """
 
     @abstractmethod
-    def _build_recommendations(self, word: str) -> Dict[str, float]:
-        raise NotImplementedError("Abstract method have no implementation")
+    def _build_recommendations(self, *args) -> Dict[str, float]:
+        """" Build recommendations
+        """
 
 
 class PhoneticRecommender(IRecommender):

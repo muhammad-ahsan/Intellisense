@@ -10,3 +10,9 @@ Intellisense - Empathize with users searching online!
 
 # Run the web server
     uvicorn main:app --reload
+
+# Unit Tests
+    pytest
+
+# Coverage Reporting
+    pytest --cov-report term-missing --cov=intellisense tests/
